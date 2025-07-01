@@ -1,7 +1,7 @@
 /* Initialisierung der Karten: */
 
-const cards = ["⚽", "💖", "🍑", "🔥"];
-const gameBoard = document.querySelector("#game-board");
+const cards = ['⚽', '💖', '🍑', '🔥'];
+const gameBoard = document.querySelector('#game-board');
 let total_pairs = 0;
 
 function createCards() 
@@ -17,25 +17,23 @@ function createCards()
         gameBoard.appendChild(createCard(symbol));
     });
 
-    total_pairs = document.querySelectorAll(".card").length / 2; //Kann erst berechnet werden, nachdem die Karten alle erstellt wurden
+    total_pairs = document.querySelectorAll('.card').length / 2; //Kann erst berechnet werden, nachdem die Karten alle erstellt wurden
 }
 
 function createCard(symbol) 
 {
-    const card = document.createElement("div");
-    card.textContent = "?";
+    const card = document.createElement('div');
+    card.textContent = '?';
     card.dataset.value = symbol;  
-    card.classList.add("card", "hidden");
+    card.classList.add('card', 'hidden');
 
-    card.addEventListener("click", () => revealCard(card));
+    card.addEventListener('click', () => revealCard(card));
 
     return card;
 }
 
 // Karten werden geladen, erst nachdem der gesamte DOMBaum erstellt wurde
-document.addEventListener("DOMContentLoaded", createCards);
-
-
+document.addEventListener('DOMContentLoaded', createCards);
 
 /* Spiel: */ 
         
@@ -46,13 +44,12 @@ document.addEventListener("DOMContentLoaded", createCards);
 
         function revealCard(card) 
         {
-            if (!card.classList.contains("hidden") || lockBoard) return; // Keine Aktion: Karte schon sichtbar || das Board ist gesperrt
+            if (!card.classList.contains('hidden') || lockBoard) {return;} // Keine Aktion: Karte schon sichtbar || das Board ist gesperrt
 
             card.innerText = card.dataset.value; //Text wird von '?' zu Symbol geändert
-            card.classList.remove("hidden");
+            card.classList.remove('hidden');
 
             flippedCards.push(card); // Karte wird ins Array gesetzt
-
                 
                 if (flippedCards.length === 2) //2 Karten geflipped
                 {
@@ -63,8 +60,8 @@ document.addEventListener("DOMContentLoaded", createCards);
                     {
                     setTimeout(() => //Um die Karte nicht direkt ummzudrehen und Spannung zu lassen
                     {
-                        flippedCards[0].style.backgroundColor = "green";
-                        flippedCards[1].style.backgroundColor = "green";
+                        flippedCards[0].style.backgroundColor = 'green';
+                        flippedCards[1].style.backgroundColor = 'green';
 
                         matched_pairs++;
 
@@ -76,14 +73,13 @@ document.addEventListener("DOMContentLoaded", createCards);
                 {
                     setTimeout(() =>  // Karten werden zurückgesetzt
                     {
-                        flippedCards[0].innerText = "?";
-                        flippedCards[1].innerText = "?";
-                        flippedCards[0].classList.add("hidden");
-                        flippedCards[1].classList.add("hidden");
+                        flippedCards[0].innerText = '?';
+                        flippedCards[1].innerText = '?';
+                        flippedCards[0].classList.add('hidden');
+                        flippedCards[1].classList.add('hidden');
                         resetBoard();
                     }, 850);
                 }
-
 
             }
         }
@@ -98,11 +94,11 @@ document.addEventListener("DOMContentLoaded", createCards);
         {
             if (matched_pairs === total_pairs) 
             {
-                document.getElementById("message").innerText = "Glückwunsch! Du bist der Beste!!!";
-                document.body.style.backgroundColor = "lightgreen";
+                document.getElementById('message').innerText = 'Glückwunsch! Du bist der Beste!!!';
+                document.body.style.backgroundColor = 'lightgreen';
             }
         }
 
-        document.getElementById("reset-button").addEventListener("click", () => {
+        document.getElementById('reset-button').addEventListener('click', () => {
             location.reload(); // Neustart durch Seiten-Reload
         });
